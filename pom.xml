@@ -9,6 +9,7 @@
 
   <modules>
       <module>Oracle</module>
+      <module>OracleJS</module>
   </modules>
 
   <name>Digital Oracle API Parent</name>
