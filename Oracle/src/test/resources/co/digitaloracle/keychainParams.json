@@ -1,0 +1,23 @@
+{
+    "keys": [
+        "xpub69H7F5d8KSRgmmdJg2KhpAK8SR3DjMwAdkxj3ZuxV27CprR9LgpeyGmXUbC6wb7ERfvrnKZjXoUmmDznezpbZb7ap6r1D3tgFxHmwMkQTPH",
+        "xpub69H7F5d8KSRgmmdJg2KhpAK8SR3DjMwAdkxj3ZuxV27CprR9LgpeyGmXUbC6wb7ERfvrnKZjXoUmmDznezpbZb7ap6r1D3tgFxHmwMkQTPH"
+    ],
+    "parameters": {
+        "delay_1": 60,
+        "velocity_1": {
+            "asset": "BTC",
+            "limited_keys": [
+                0
+            ],
+            "period": 86400,
+            "value": 200
+        }
+    },
+    "pii": {
+        "email": "email2@email.em",
+        "phone": "+1 415-415-4152"
+    },
+    "rulesetId": "default",
+    "walletAgent": "HDM-2.0-cc-100"
+}

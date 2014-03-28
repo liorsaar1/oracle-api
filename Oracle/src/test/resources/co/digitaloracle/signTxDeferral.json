@@ -1,0 +1,10 @@
+{
+	"result": "deferred",
+	"transaction": null,
+	"deferral": {
+		"until": "2014-03-28T16:32:42Z",
+		"reason": "delay",
+		"verifications": null
+	},
+	"now": "2014-03-28T16:31:43Z"
+}

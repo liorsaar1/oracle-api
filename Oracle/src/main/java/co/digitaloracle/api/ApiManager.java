@@ -1,9 +1,7 @@
 /**
- * 
+ *
  */
 package co.digitaloracle.api;
-
-import java.io.UnsupportedEncodingException;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -14,15 +12,14 @@ import org.apache.http.impl.nio.client.CloseableHttpAsyncClient;
 import org.apache.http.impl.nio.client.HttpAsyncClients;
 import org.apache.http.util.EntityUtils;
 
+import java.io.UnsupportedEncodingException;
+
 /**
  * Copyright (C) 2014 CryptoCorp. All rights reserved.
- * 
+ *
  * @author liorsaar
- * 
  */
 public class ApiManager {
-
-    private static final String RESULT_CANCELLED = "cancelled";
 
     /*
      * @see http://hc.apache.org/httpcomponents-asyncclient-4.0.x/quickstart.html
@@ -48,6 +45,11 @@ public class ApiManager {
 
     protected void requestCompleted(HttpResponse httpResponse, ApiListener apiListener) {
         try {
+            // check http status
+            if (httpResponse.getStatusLine().getStatusCode() == 500) {
+                requestError(httpResponse.getStatusLine().toString(), apiListener);
+                return;
+            }
             // parse
             String responseString = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");
             ApiResponse apiResponse = ApiResponse.create(responseString);
@@ -69,7 +71,7 @@ public class ApiManager {
     }
 
     private void requestCancelled(ApiListener aListener) {
-        requestError(RESULT_CANCELLED, aListener);
+        requestError(ApiResponse.RESULT_CANCELLED, aListener);
     }
 
     private void requestError(String aMessage, ApiListener aListener) {

@@ -4,7 +4,6 @@
 package co.digitaloracle.api;
 
 import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -13,6 +12,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import co.digitaloracle.model.Deferral;
+import co.digitaloracle.model.Transaction;
+
 /**
  * Copyright (C) 2014 CryptoCorp. All rights reserved.
  * 
@@ -20,13 +22,17 @@ import java.util.HashMap;
  * 
  */
 public class ApiResponse {
-    private static final String RESULT_ERROR = "error";
+    public static final String RESULT_CANCELLED = "cancelled";
+    public static final String RESULT_ERROR = "error";
+    public static final String RESULT_DEFERRED = "deferred";
+    public static final String DEFERRAL_REASON = "reason";
+    public static final String DEFERRAL_REASON_DELAY = "delay";
 
     public String result;
     public String error;
     public HashMap<String, ArrayList<String>> keys;
-    public HashMap<String, Object> transaction;
-    public HashMap<String, Object> deferral;
+    public Transaction transaction;
+    public Deferral deferral;
     public String now;
 
     public static ApiResponse create(String aJsonString) throws JsonParseException, JsonMappingException, IOException {

@@ -3,22 +3,19 @@
  */
 package co.digitaloracle;
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Scanner;
-
+import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.DeserializationConfig;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Test;
+
+import java.io.IOException;
 
 import co.digitaloracle.api.ApiResponse;
 import co.digitaloracle.model.KeychainParams;
 
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.JsonProcessingException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Copyright (C) 2014 CryptoCorp. All rights reserved.
@@ -55,13 +52,17 @@ public class ApiResponseTest {
 
     @Test
     public void testSignTxResponse() throws JsonParseException, JsonMappingException, IOException {
-        File f = new File( "./");
-        String x = f.getAbsolutePath();
-        String rootPath = "./Oracle/src/test/resources/co/digitaloracle/";
-        String jsonString = new Scanner(new File(rootPath + "signTxResponse.json")).useDelimiter("\\Z").next();
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        ApiResponse apiResponse = objectMapper.readValue(jsonString, ApiResponse.class);
+        ApiResponse apiResponse = ApiResponse.create(Util.getResourceString("signTxResponse.json"));
         assertEquals("result", "success", apiResponse.result);
+        assertNotNull("transaction", apiResponse.transaction);
     }
+
+    @Test
+    public void testDeferral() throws JsonParseException, JsonMappingException, IOException {
+        ApiResponse apiResponse = ApiResponse.create(Util.getResourceString("signTxDeferral.json"));
+        assertEquals("result", "deferred", apiResponse.result);
+        assertNotNull("deferral", apiResponse.deferral);
+        assertEquals("reason", "delay", apiResponse.deferral.reason);
+    }
+
 }
