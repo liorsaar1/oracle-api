@@ -18,16 +18,4 @@ public class KeychainParams {
     public HashMap<String, Object> parameters;
     public HashMap<String, Object> pii;
     public String walletAgent;
-
-    public String getRulesetId() {
-        return rulesetId;
-    }
-
-    public ArrayList<String> getKeys() {
-        return keys;
-    }
-
-    public HashMap<String, Object> getParameters() {
-        return parameters;
-    }
 }

@@ -25,12 +25,12 @@ import co.digitaloracle.model.SignatureRequest;
  */
 public class DigitalOracle extends ApiManager {
 
-    private String mHostUrl;
+    private String hostUrl;
 
-    public DigitalOracle(String aHostUrl) {
-        if (aHostUrl == null)
-            throw new NullPointerException("@param:aHostUrl");
-        mHostUrl = aHostUrl.trim();
+    public DigitalOracle(String hostUrl) {
+        if (hostUrl == null)
+            throw new NullPointerException("@param:hostUrl");
+        this.hostUrl = hostUrl;
     }
 
     /**
@@ -52,7 +52,7 @@ public class DigitalOracle extends ApiManager {
      */
     public void createKeychain(KeychainParams aKeychainParams, ApiListener aListener) throws IOException {
         String key = aKeychainParams.getKeys().get(0);
-        String keychainId = getNewKeychainId(key);
+        String keychainId = getKeychainId(key);
         String keychainUrl = getKeychainUrl(keychainId);
         post(keychainUrl, ApiResponse.toJsonString(aKeychainParams), aListener);
     };
@@ -74,14 +74,14 @@ public class DigitalOracle extends ApiManager {
      * @return UUID v5 from urn+key
      * @see <a href="https://cryptocorp.co/api/"/>
      */
-    private String getNewKeychainId(String aKey) {
+    private String getKeychainId(String aKey) {
         String name = "urn:digitaloracle.co:" + aKey;
         UUID uuid = UUID.uuid5(Namespace.DNS, name.getBytes());
         return uuid.hex();
     }
 
     private String getKeychainUrl(String aKeychinId) {
-        return mHostUrl + "/keychains/" + aKeychinId;
+        return hostUrl + "/keychains/" + aKeychinId;
     }
 
     private String getKeychainTxUrl(String aKeychinId) {

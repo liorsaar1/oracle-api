@@ -13,7 +13,6 @@ import co.digitaloracle.api.ApiListener;
 import co.digitaloracle.api.ApiResponse;
 import co.digitaloracle.model.KeychainParams;
 import co.digitaloracle.model.SignatureRequest;
-import co.digitaloracle.model.Transaction;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -150,8 +149,8 @@ public class DigitalOracleTest {
     @Test
     public void testKeychainParams() throws Exception {
         KeychainParams keychainParams = getKeychainParams();
-        assertEquals("rulesetId", "default", keychainParams.getRulesetId());
-        assertEquals("keys", 2, keychainParams.getKeys().size());
+        assertEquals("rulesetId", "default", keychainParams.rulesetId);
+        assertEquals("keys", 2, keychainParams.keys.size());
     }
 
     private KeychainParams getKeychainParams() throws Exception {
