@@ -25,8 +25,9 @@ public class ApiResponse {
     public static final String RESULT_CANCELLED = "cancelled";
     public static final String RESULT_ERROR = "error";
     public static final String RESULT_DEFERRED = "deferred";
-    public static final String DEFERRAL_REASON = "reason";
     public static final String DEFERRAL_REASON_DELAY = "delay";
+
+    public static final String DATE_FORMAT_PATTERN = "yyyy-MM-dd'T'hh:mm:ss'Z'";
 
     public String result;
     public String error;

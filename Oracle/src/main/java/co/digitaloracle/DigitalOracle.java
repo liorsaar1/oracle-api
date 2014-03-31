@@ -51,7 +51,7 @@ public class DigitalOracle extends ApiManager {
      * @throws Exception
      */
     public void createKeychain(KeychainParams aKeychainParams, ApiListener aListener) throws IOException {
-        String key = aKeychainParams.getKeys().get(0);
+        String key = aKeychainParams.keys.get(0);
         String keychainId = getKeychainId(key);
         String keychainUrl = getKeychainUrl(keychainId);
         post(keychainUrl, ApiResponse.toJsonString(aKeychainParams), aListener);
