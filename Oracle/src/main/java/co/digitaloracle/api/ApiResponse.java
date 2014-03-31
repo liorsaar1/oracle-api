@@ -36,10 +36,10 @@ public class ApiResponse {
     public Deferral deferral;
     public String now;
 
-    public static ApiResponse create(String aJsonString) throws JsonParseException, JsonMappingException, IOException {
+    public static ApiResponse create(String jsonString) throws JsonParseException, JsonMappingException, IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        ApiResponse apiResponse = objectMapper.readValue(aJsonString, ApiResponse.class);
+        ApiResponse apiResponse = objectMapper.readValue(jsonString, ApiResponse.class);
         return apiResponse;
     }
 

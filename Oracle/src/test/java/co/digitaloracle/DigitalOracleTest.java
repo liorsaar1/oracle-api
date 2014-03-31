@@ -53,7 +53,7 @@ public class DigitalOracleTest {
     @Test
     public void testGetKeychain() throws Exception {
         final CountDownLatch latch = new CountDownLatch(1);
-        final ApiResponse[] apiResponse = {null};
+        final ApiResponse[] apiResponseWrapper = {null};
 
         String keychainId = "6408110e-900b-4dfd-891b-62ed0478ea4b";
         String keyExpected = "xpub68rQ8y4gfHpEN92JwBojkGCrZFM74gv6m9rw6H3iFiGbgRfRULKdtPZJkrD4BJj7yyerW9BgZ4YCoTHt5rVsXr3BaSfyKBt4dWW9KaHnMdk";
@@ -62,22 +62,22 @@ public class DigitalOracleTest {
         digitalOracle.getKeychain(keychainId, new ApiListener() {
 
             @Override
-            public void onSuccess(ApiResponse aApiResponse) {
-                System.out.println("onSuccess: " + aApiResponse);
-                apiResponse[0] = aApiResponse;
+            public void onSuccess(ApiResponse apiResponse) {
+                System.out.println("onSuccess: " + apiResponse);
+                apiResponseWrapper[0] = apiResponse;
                 latch.countDown();
             }
 
             @Override
-            public void onError(ApiResponse aApiResponse) {
-                System.out.println("onError: " + aApiResponse.getError());
-                apiResponse[0] = aApiResponse;
+            public void onError(ApiResponse apiResponse) {
+                System.out.println("onError: " + apiResponse.getError());
+                apiResponseWrapper[0] = apiResponse;
                 latch.countDown();
             }
         });
         latch.await();
-        assertNull("Get Keychain error", apiResponse[0].getError());
-        assertEquals("Get Keychain", keyExpected, apiResponse[0].getKey());
+        assertNull("Get Keychain error", apiResponseWrapper[0].getError());
+        assertEquals("Get Keychain", keyExpected, apiResponseWrapper[0].getKey());
     }
 
     /**
@@ -89,7 +89,7 @@ public class DigitalOracleTest {
     public void testCreateKeychain() throws Exception {
 
         final CountDownLatch latch = new CountDownLatch(1);
-        final ApiResponse[] apiResponse = {null};
+        final ApiResponse[] apiResponseWrapper = {null};
 
         KeychainParams keychainParams = getKeychainParams();
         DigitalOracle digitalOracle = new DigitalOracle(DO_SANDBOX_URL);
@@ -97,22 +97,22 @@ public class DigitalOracleTest {
         digitalOracle.createKeychain(keychainParams, new ApiListener() {
 
             @Override
-            public void onSuccess(ApiResponse aApiResponse) {
-                System.out.println("onSuccess: " + aApiResponse);
-                apiResponse[0] = aApiResponse;
+            public void onSuccess(ApiResponse apiResponse) {
+                System.out.println("onSuccess: " + apiResponse);
+                apiResponseWrapper[0] = apiResponse;
                 latch.countDown();
             }
 
             @Override
-            public void onError(ApiResponse aApiResponse) {
-                System.out.println("onError: " + aApiResponse.getError());
-                apiResponse[0] = aApiResponse;
+            public void onError(ApiResponse apiResponse) {
+                System.out.println("onError: " + apiResponse.getError());
+                apiResponseWrapper[0] = apiResponse;
                 latch.countDown();
             }
         });
         latch.await();
-        assertEquals("Create Keychain error", null, apiResponse[0].getError());
-        assertNotNull("Create Keychain", apiResponse[0].getKey());
+        assertEquals("Create Keychain error", null, apiResponseWrapper[0].getError());
+        assertNotNull("Create Keychain", apiResponseWrapper[0].getKey());
     }
 
     /**
@@ -123,7 +123,7 @@ public class DigitalOracleTest {
     @Test
     public void testSignTx() throws Exception {
         final CountDownLatch latch = new CountDownLatch(1);
-        final ApiResponse[] apiResponse = {null};
+        final ApiResponse[] apiResponseWrapper = {null};
 
         SignatureRequest signatureRequest = getSignatureRequest();
         String keychainId = "6408110e-900b-4dfd-891b-62ed0478ea4b";
@@ -132,22 +132,22 @@ public class DigitalOracleTest {
         digitalOracle.signTx(keychainId, signatureRequest, new ApiListener() {
 
             @Override
-            public void onSuccess(ApiResponse aApiResponse) {
-                System.out.println("onSuccess: " + aApiResponse);
-                apiResponse[0] = aApiResponse;
+            public void onSuccess(ApiResponse apiResponse) {
+                System.out.println("onSuccess: " + apiResponse);
+                apiResponseWrapper[0] = apiResponse;
                 latch.countDown();
             }
 
             @Override
-            public void onError(ApiResponse aApiResponse) {
-                System.out.println("onError: " + aApiResponse.getError());
-                apiResponse[0] = aApiResponse;
+            public void onError(ApiResponse apiResponse) {
+                System.out.println("onError: " + apiResponse.getError());
+                apiResponseWrapper[0] = apiResponse;
                 latch.countDown();
             }
         });
         latch.await();
-        assertEquals("Sign Tx error", null, apiResponse[0].getError());
-        assertFalse("Sign Tx", apiResponse[0].isError());
+        assertEquals("Sign Tx error", null, apiResponseWrapper[0].getError());
+        assertFalse("Sign Tx", apiResponseWrapper[0].isError());
     }
 
     @Test

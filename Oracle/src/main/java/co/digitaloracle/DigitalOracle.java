@@ -6,10 +6,7 @@ package co.digitaloracle;
 import com.github.shaxbee.uuid.UUID;
 import com.github.shaxbee.uuid.UUID.Namespace;
 
-import org.codehaus.jackson.JsonProcessingException;
-
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 import co.digitaloracle.api.ApiListener;
 import co.digitaloracle.api.ApiManager;
@@ -34,62 +31,55 @@ public class DigitalOracle extends ApiManager {
     }
 
     /**
-     * @param aKeychainId
-     * @param aListener
+     * @param keychainId
+     * @param listener
      */
-    public void getKeychain(String aKeychainId, ApiListener aListener) {
-        if (aKeychainId == null)
-            throw new NullPointerException("@param:aKeychainId");
-        String keychainUrl = getKeychainUrl(aKeychainId);
-        get(keychainUrl, aListener);
+    public void getKeychain(String keychainId, ApiListener listener) {
+        if (keychainId == null)
+            throw new NullPointerException("@param:keychainId");
+        String keychainUrl = getKeychainUrl(keychainId);
+        get(keychainUrl, listener);
     }
 
     /**
-     * @param aKeychainParams
-     * @param aListener
-     * @throws JsonProcessingException
-     * @throws Exception
+     * @param keychainParams
+     * @param listener
+     * @throws IOException
      */
-    public void createKeychain(KeychainParams aKeychainParams, ApiListener aListener) throws IOException {
-        String key = aKeychainParams.keys.get(0);
+    public void createKeychain(KeychainParams keychainParams, ApiListener listener) throws IOException {
+        String key = keychainParams.keys.get(0);
         String keychainId = getKeychainId(key);
         String keychainUrl = getKeychainUrl(keychainId);
-        post(keychainUrl, ApiResponse.toJsonString(aKeychainParams), aListener);
+        post(keychainUrl, ApiResponse.toJsonString(keychainParams), listener);
     };
 
     /**
-     * @param aKeychainId
+     * @param keychainId
      * @param signatureRequest
-     * @param aListener
-     * @throws UnsupportedEncodingException
-     * @throws JsonProcessingException
+     * @param listener
+     * @throws IOException
      */
-    public void signTx(String aKeychainId, SignatureRequest signatureRequest, ApiListener aListener) throws IOException {
-        String keychainUrl = getKeychainTxUrl(aKeychainId);
-        post(keychainUrl, ApiResponse.toJsonString(signatureRequest), aListener);
+    public void signTx(String keychainId, SignatureRequest signatureRequest, ApiListener listener) throws IOException {
+        String keychainUrl = getKeychainTxUrl(keychainId);
+        post(keychainUrl, ApiResponse.toJsonString(signatureRequest), listener);
     }
 
     /**
-     * @param aKey
+     * @param key
      * @return UUID v5 from urn+key
      * @see <a href="https://cryptocorp.co/api/"/>
      */
-    private String getKeychainId(String aKey) {
-        String name = "urn:digitaloracle.co:" + aKey;
+    private String getKeychainId(String key) {
+        String name = "urn:digitaloracle.co:" + key;
         UUID uuid = UUID.uuid5(Namespace.DNS, name.getBytes());
         return uuid.hex();
     }
 
-    private String getKeychainUrl(String aKeychinId) {
-        return hostUrl + "/keychains/" + aKeychinId;
+    private String getKeychainUrl(String keychinId) {
+        return hostUrl + "/keychains/" + keychinId;
     }
 
-    private String getKeychainTxUrl(String aKeychinId) {
-        return getKeychainUrl(aKeychinId) + "/transactions";
+    private String getKeychainTxUrl(String keychinId) {
+        return getKeychainUrl(keychinId) + "/transactions";
     }
-
-    public static void main(String [ ] args) {
-        return;
-    }
-
 }

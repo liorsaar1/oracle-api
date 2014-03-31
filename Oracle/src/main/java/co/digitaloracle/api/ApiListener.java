@@ -10,7 +10,7 @@ package co.digitaloracle.api;
  * 
  */
 public interface ApiListener {
-    void onSuccess(ApiResponse aApiResponse);
+    void onSuccess(ApiResponse apiResponse);
 
-    void onError(ApiResponse aApiResponse);
+    void onError(ApiResponse apiResponse);
 }

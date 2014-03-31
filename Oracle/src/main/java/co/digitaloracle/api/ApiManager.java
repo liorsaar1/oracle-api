@@ -24,23 +24,23 @@ public class ApiManager {
     /*
      * @see http://hc.apache.org/httpcomponents-asyncclient-4.0.x/quickstart.html
      */
-    protected void get(String aUrl, final ApiListener aListener) {
-        final HttpGet request = new HttpGet(aUrl);
+    protected void get(String url, final ApiListener listener) {
+        final HttpGet request = new HttpGet(url);
         // System.out.println(request.getRequestLine());
         CloseableHttpAsyncClient httpClient = HttpAsyncClients.createDefault();
         httpClient.start();
-        httpClient.execute(request, new ApiFutureCallback(aListener));
+        httpClient.execute(request, new ApiFutureCallback(listener));
     }
 
-    protected void post(String aUrl, String aJsonString, final ApiListener aListener) throws UnsupportedEncodingException {
-        final HttpPost request = new HttpPost(aUrl);
-        StringEntity entity = new StringEntity(aJsonString);
+    protected void post(String url, String jsonString, final ApiListener listener) throws UnsupportedEncodingException {
+        final HttpPost request = new HttpPost(url);
+        StringEntity entity = new StringEntity(jsonString);
         entity.setContentType("application/json");
         request.setEntity(entity);
 
         CloseableHttpAsyncClient httpClient = HttpAsyncClients.createDefault();
         httpClient.start();
-        httpClient.execute(request, new ApiFutureCallback(aListener));
+        httpClient.execute(request, new ApiFutureCallback(listener));
     }
 
     protected void requestCompleted(HttpResponse httpResponse, ApiListener apiListener) {
@@ -66,17 +66,17 @@ public class ApiManager {
         }
     }
 
-    private void requestFailed(Exception aException, ApiListener aListener) {
-        requestError(aException.toString(), aListener);
+    private void requestFailed(Exception exception, ApiListener listener) {
+        requestError(exception.toString(), listener);
     }
 
-    private void requestCancelled(ApiListener aListener) {
-        requestError(ApiResponse.RESULT_CANCELLED, aListener);
+    private void requestCancelled(ApiListener listener) {
+        requestError(ApiResponse.RESULT_CANCELLED, listener);
     }
 
-    private void requestError(String aMessage, ApiListener aListener) {
-        ApiResponse apiResponse = ApiResponse.createError(aMessage);
-        aListener.onError(apiResponse);
+    private void requestError(String message, ApiListener listener) {
+        ApiResponse apiResponse = ApiResponse.createError(message);
+        listener.onError(apiResponse);
     }
 
     class ApiFutureCallback implements FutureCallback<HttpResponse> {
