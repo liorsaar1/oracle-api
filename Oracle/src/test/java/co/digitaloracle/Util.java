@@ -1,6 +1,5 @@
 package co.digitaloracle;
 
-import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.File;
@@ -20,7 +19,7 @@ public class Util {
     public static Object getJson( String filename, Class classs ) throws Exception {
         String jsonString = Util.getResourceString(filename);
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+//        objectMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         return objectMapper.readValue(jsonString, classs);
     }
 }

@@ -12,11 +12,10 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.concurrent.CountDownLatch;
 
+import co.cryptocorp.oracle.api.SigningRequest;
 import co.digitaloracle.api.ApiListener;
 import co.digitaloracle.api.ApiResponse;
 import co.digitaloracle.model.KeychainParams;
-import co.digitaloracle.model.SignatureRequest;
-import co.digitaloracle.model.Transaction;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -116,7 +115,7 @@ public class DigitalOracleTest {
     }
 
     /**
-     * Test method for {@link co.digitaloracle.DigitalOracle#signTx(java.lang.String, co.digitaloracle.model.SignatureRequest, co.digitaloracle.api.ApiListener)}.
+     * Test method for {@link co.digitaloracle.DigitalOracle#signTx(java.lang.String, co.cryptocorp.oracle.api.SigningRequest, co.digitaloracle.api.ApiListener)}.
      *
      * @throws Exception
      */
@@ -125,7 +124,7 @@ public class DigitalOracleTest {
         final CountDownLatch latch = new CountDownLatch(1);
         final ApiResponse[] apiResponseWrapper = {null};
 
-        SignatureRequest signatureRequest = getSignatureRequest();
+        SigningRequest signatureRequest = getSignatureRequest();
         String keychainId = "6408110e-900b-4dfd-891b-62ed0478ea4b";
 
         DigitalOracle digitalOracle = new DigitalOracle(DO_SANDBOX_URL);
@@ -161,17 +160,17 @@ public class DigitalOracleTest {
         return (KeychainParams) Util.getJson("keychainParams.json", KeychainParams.class);
     }
 
-    private SignatureRequest getSignatureRequest() throws Exception {
-        return (SignatureRequest) Util.getJson("signTxRequest.json", SignatureRequest.class);
+    private SigningRequest getSignatureRequest() throws Exception {
+        return (SigningRequest) Util.getJson("signTxRequest.json", SigningRequest.class);
     }
 
-    private Transaction getTransactionRequestDeferred() throws Exception {
-        return (Transaction) Util.getJson("signTxRequestDeferred.json", Transaction.class);
+    private SigningRequest getTransactionRequestDeferred() throws Exception {
+        return (SigningRequest) Util.getJson("signTxRequestDeferred.json", SigningRequest.class);
     }
 
     @Test
     public void testDeferral() throws Exception {
-        Transaction transaction = getTransactionRequestDeferred();
+        SigningRequest request = getTransactionRequestDeferred();
         String keychainId = "6408110e-900b-4dfd-891b-62ed0478ea4b";
 
         ApiResponse apiResponse = ApiResponse.create(Util.getResourceString("signTxDeferral.json"));

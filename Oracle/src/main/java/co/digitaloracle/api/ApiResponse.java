@@ -12,8 +12,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import co.cryptocorp.oracle.api.ApiTransaction;
 import co.digitaloracle.model.Deferral;
-import co.digitaloracle.model.Transaction;
 
 /**
  * Copyright (C) 2014 CryptoCorp. All rights reserved.
@@ -32,7 +32,7 @@ public class ApiResponse {
     public String result;
     public String error;
     public HashMap<String, ArrayList<String>> keys;
-    public Transaction transaction;
+    public ApiTransaction transaction;
     public Deferral deferral;
     public String now;
 

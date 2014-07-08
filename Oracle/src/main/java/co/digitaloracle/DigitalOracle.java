@@ -8,11 +8,11 @@ import com.github.shaxbee.uuid.UUID.Namespace;
 
 import java.io.IOException;
 
+import co.cryptocorp.oracle.api.SigningRequest;
 import co.digitaloracle.api.ApiListener;
 import co.digitaloracle.api.ApiManager;
 import co.digitaloracle.api.ApiResponse;
 import co.digitaloracle.model.KeychainParams;
-import co.digitaloracle.model.SignatureRequest;
 
 /**
  * Copyright (C) 2014 CryptoCorp. All rights reserved.
@@ -59,7 +59,7 @@ public class DigitalOracle extends ApiManager {
      * @param listener
      * @throws IOException
      */
-    public void signTx(String keychainId, SignatureRequest signatureRequest, ApiListener listener) throws IOException {
+    public void signTx(String keychainId, SigningRequest signatureRequest, ApiListener listener) throws IOException {
         String keychainUrl = getKeychainTxUrl(keychainId);
         post(keychainUrl, ApiResponse.toJsonString(signatureRequest), listener);
     }
